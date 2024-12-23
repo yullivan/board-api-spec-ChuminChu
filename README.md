@@ -1,0 +1,154 @@
+# 게시판 API specification 정의
+## - 게시판
+- 생성
+    - `POST`
+    - Path
+        - /boards
+    - Example Endpoint
+        - https://localhost:8080/boards
+    - Request Parameters
+        - ??Body Parameters??
+            - boardName `String` 게시판 이름
+- 목록 조회
+    - `GET`
+    - Path
+        - /boards
+    - Example Endpoint
+        - https://localhost:8080/boards
+    - Request Parameters
+      - boardName 게시판 이름
+  - Response Message
+      - message `String`
+      - data
+          - boardId `Number` 게시판 ID
+          - boardName `String` 게시판 이름
+        
+- 특정 게시판 조회
+  - `Get`
+  - Path
+    - /board/{boardId}
+  - Example Endpoint
+      - https://localhost:8080/board/{boardId}
+  - Request Parameters
+    - boardName 게시판 이름
+  - Response
+    - boarName 게시판 이름
+- 수정
+    - `PUT`
+    - Path
+        - /boards/{boardId}
+    - Example Endpoint
+        - https://localhost:8080/boards/{boardId}
+    - Request Parameters
+        - Body Parameters
+            - boardName `String` 게시판 이름
+    - Response Message
+      - message `String`
+      - data 
+        - boardId `Number` 게시판 ID
+        - boardName `String` 수정된 게시판 이름
+- 삭제
+    - `DELETE`
+    - Path
+        - /boards/{boardId}
+    - Example Endpoint
+      - https://localhost:8080/boards/{boardId}
+    - Request Parameters
+        - Path Segment Parameter
+            - boardId `Number` 게시판 ID
+    - Response Message
+        - message `String`
+        - data `String` 삭제된 게시판 ID
+
+## - 게시글
+- 생성
+    - `POST`
+    - Path
+        - board/{boardId}/posts
+    - Example Endpoint
+        - https://localhost:8080/board/{boardId}/posts
+    - Request Parameters
+        - Body Parameters
+            - title `String` 게시글 제목
+            - content `String` 게시글 내용
+            - boardId `Number` 게시판 ID
+- 목록 조회
+    - `GET`
+    - Path
+        - board/{boardId}/posts
+    - Example Endpoint
+        - https://localhost:8080/board/{boardId}/posts
+    - Request Parameters
+        - Path Segment Parameter
+            - postId `Number` 게시판 ID
+    - Response Message
+        - message `String`
+        - data
+            - postId `Number` 게시글 ID
+            - title `String` 게시글 제목
+            - boardId `Number` 게시판 ID
+- 특정 게시글 조회
+  - `GET`
+  - Path
+    - board/{boardId}/posts/{postId}
+  - Example Endpoint
+    - https://localhost:8080/board/{boardId}/posts/{postId}
+  - Request Paramters
+    - postId `Number` 게시글 ID
+    - boardId `Number` 게시판 ID
+  - Response Parameters
+    - message
+    - data
+      - 게시글 id
+      - 게시글 제목
+      - 게시글 작성자
+      - 게시글 내용
+- 삭제
+    - `DELETE`
+    - Path
+        - board/{boardId}/posts/{postId}
+    - Example Endpoint
+        - https://localhost:8080/board/{boardId}/posts/{postId}
+    - Request Parameters
+        - Path Segment Parameter
+            - postId `Number` 게시글 ID
+    - Response Message
+        - message `String`
+            - data `String` 삭제된 게시글 ID
+## - 댓글
+- 생성
+    - `POST`
+    - Path
+        - board/{boardId}/posts/{postId}/comments
+    - Example Endpoint
+        - https://localhost:8080/board/{boardId}/posts/{postId}comments
+    - Request Parameters
+        - Body Parameters
+            - content `String` 댓글 내용
+            - postId `Number` 게시글 ID
+- 조회
+    - `GET`
+    - Path
+        - board/{boardId}/posts/{postId}/comments/{commentsId}
+    - Example Endpoint
+        - https://localhost:8080/board/{boardId}/posts/{postId}/comments/{commentsId}
+    - Request Parameters
+        - Path Segment Parameter
+            - commentsId `Number` 댓글 ID
+    - Response Message
+        - message `String`
+        - data
+            - postId `Number` 게시글 ID
+            - content `String` 댓글 내용
+- 삭제
+    - `DELETE`
+    - Path
+        - board/{boardId}/posts/{postId}/comments/{commentsId}
+    - Example Endpoint
+        - https://localhost:8080/comments/board/{boardId}/posts/{postId}/{commentsId}
+    - Request Parameters
+        - Path Segment Parameter
+            - commentsId `Number` 댓글 ID
+    - Response Message
+        - message `String`
+            - data `String` 삭제된 댓글 ID
