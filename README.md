@@ -6,149 +6,169 @@
         - /boards
     - Example Endpoint
         - https://localhost:8080/boards
-    - Request Parameters
-        - ??Body Parameters??
-            - boardName `String` 게시판 이름
+    - Request
+        - Body Parameter
+            - boardName `String` 게시판 이름 
+    - Response
+        - boardName `String` 게시판 이름
+        - boardId `Long` 게시판 ID
+       
 - 목록 조회
     - `GET`
     - Path
         - /boards
     - Example Endpoint
         - https://localhost:8080/boards
-    - Request Parameters
-      - boardName 게시판 이름
-  - Response Message
-      - message `String`
-      - data
-          - boardId `Number` 게시판 ID
-          - boardName `String` 게시판 이름
-        
-- 특정 게시판 조회
-  - `Get`
-  - Path
-    - /board/{boardId}
-  - Example Endpoint
-      - https://localhost:8080/board/{boardId}
-  - Request Parameters
-    - boardName 게시판 이름
   - Response
-    - boarName 게시판 이름
+     - boardId `Number` 게시판 ID
+     - boardName `String` 게시판 이름
+        
 - 수정
     - `PUT`
     - Path
         - /boards/{boardId}
     - Example Endpoint
         - https://localhost:8080/boards/{boardId}
-    - Request Parameters
-        - Body Parameters
+    - Request
+        - Path
+            - boardId `Long` 게시판 ID
+      - RequestBody
             - boardName `String` 게시판 이름
-    - Response Message
-      - message `String`
-      - data 
-        - boardId `Number` 게시판 ID
+    - Response 
+        - boardId `Long` 게시판 ID
         - boardName `String` 수정된 게시판 이름
+        - 
 - 삭제
     - `DELETE`
     - Path
         - /boards/{boardId}
     - Example Endpoint
       - https://localhost:8080/boards/{boardId}
-    - Request Parameters
-        - Path Segment Parameter
+    - Request
+        - Path
             - boardId `Number` 게시판 ID
-    - Response Message
-        - message `String`
-        - data `String` 삭제된 게시판 ID
+    - Response 
+        - boardId `String` 삭제된 게시판 ID
 
 ## - 게시글
 - 생성
     - `POST`
     - Path
-        - board/{boardId}/posts
+        - /posts
     - Example Endpoint
-        - https://localhost:8080/board/{boardId}/posts
-    - Request Parameters
+        - https://localhost:8080/posts
+    - Request
         - Body Parameters
             - title `String` 게시글 제목
             - content `String` 게시글 내용
+    - Response
+            - title `String` 게시글 제목
+            - content `String` 게시글 내용
             - boardId `Number` 게시판 ID
-- 목록 조회
+      
+- 전체 게시글 목록 조회
     - `GET`
     - Path
-        - board/{boardId}/posts
+        - /posts
     - Example Endpoint
-        - https://localhost:8080/board/{boardId}/posts
-    - Request Parameters
-        - Path Segment Parameter
-            - postId `Number` 게시판 ID
-    - Response Message
-        - message `String`
-        - data
-            - postId `Number` 게시글 ID
-            - title `String` 게시글 제목
-            - boardId `Number` 게시판 ID
+        - https://localhost:8080/posts?boardId=3
+    - Request
+          - RequestParam
+              - boardId `Long` 게시판 ID
+              - postTitle `String` 게시글 제목
+              - commentCount `int` 댓글 개수
+    - Response
+          - postId `Long` 게시글 ID
+          - title `String` 게시글 제목
+          - boardId `Long` 게시판 ID
+      
 - 특정 게시글 조회
-  - `GET`
-  - Path
-    - board/{boardId}/posts/{postId}
-  - Example Endpoint
-    - https://localhost:8080/board/{boardId}/posts/{postId}
-  - Request Paramters
-    - postId `Number` 게시글 ID
-    - boardId `Number` 게시판 ID
-  - Response Parameters
-    - message
-    - data
-      - 게시글 id
-      - 게시글 제목
-      - 게시글 작성자
-      - 게시글 내용
+      - `GET`
+      - Path
+        - /posts/{postId}
+      - Example Endpoint
+        - https://localhost:8080/posts/{postId}
+      - Request
+          - Path
+              - postId `Long` 게시글 ID
+          - RequestBody
+              - title `String` 게시판 제목
+              - content `String` 게시판 내용
+              - comments `List<comment>` 댓글 내용
+              - postId `Long` 게시글 ID
+      - Response
+          - postId `Long` 게시글 ID
+          - title `String` 게시판 제목
+          - content `String` 게시판 내용
+          - comments `List<comment>` 댓글 조회
+          - postId `Long` 게시글 ID
+
+- 수정
+    - `PUT`
+    - Path
+        - posts/{postId}
+    - Example Endpoint
+        - https://localhost:8080/posts/{postId}
+    - Request 
+        - Path
+            - postId `Long` 게시글 ID
+      - body
+            - title `String` 게시글 제목
+            - content `String` 게시글 내용
+        
+    - Response 
+            - postId `Long` 수정된 게시글 ID
+  
 - 삭제
     - `DELETE`
     - Path
-        - board/{boardId}/posts/{postId}
+        - posts/{postId}
     - Example Endpoint
-        - https://localhost:8080/board/{boardId}/posts/{postId}
-    - Request Parameters
-        - Path Segment Parameter
-            - postId `Number` 게시글 ID
-    - Response Message
-        - message `String`
-            - data `String` 삭제된 게시글 ID
+        - https://localhost:8080/posts/{postId}
+    - Request 
+        - Path
+            - postId `Long` 게시글 ID
+    - Response 
+            - postId `Long` 삭제된 게시글 ID
+      
 ## - 댓글
 - 생성
     - `POST`
     - Path
-        - board/{boardId}/posts/{postId}/comments
+        - /comments
     - Example Endpoint
-        - https://localhost:8080/board/{boardId}/posts/{postId}comments
+        - https://localhost:8080/comments
     - Request Parameters
         - Body Parameters
             - content `String` 댓글 내용
-            - postId `Number` 게시글 ID
-- 조회
-    - `GET`
+            - name `String` 작성자 이름
+    - Response
+          - content `String` 댓글 내용
+          - name `String` 작성자 이름
+          - comment `Long` 댓글 ID
+
+ - 수정
+    - `Put`
     - Path
-        - board/{boardId}/posts/{postId}/comments/{commentsId}
+        - comments/{commentId}
     - Example Endpoint
-        - https://localhost:8080/board/{boardId}/posts/{postId}/comments/{commentsId}
+        - https://localhost:8080/comments/{commentId}
     - Request Parameters
-        - Path Segment Parameter
-            - commentsId `Number` 댓글 ID
-    - Response Message
-        - message `String`
-        - data
-            - postId `Number` 게시글 ID
-            - content `String` 댓글 내용
+        - Path
+            - commentId `Long` 댓글 ID
+       - Body
+           - content `String` 댓글 내용
+    - Response
+            - commentId `Long` 수정된 댓글 ID
+           
 - 삭제
     - `DELETE`
     - Path
-        - board/{boardId}/posts/{postId}/comments/{commentsId}
+        - comments/{commentId}
     - Example Endpoint
-        - https://localhost:8080/comments/board/{boardId}/posts/{postId}/{commentsId}
+        - https://localhost:8080/comments/{commentId}
     - Request Parameters
-        - Path Segment Parameter
-            - commentsId `Number` 댓글 ID
-    - Response Message
-        - message `String`
-            - data `String` 삭제된 댓글 ID
+        - Path
+            - commentId `Long` 댓글 ID
+    - Response
+            - commentId `Long` 삭제된 댓글 ID
